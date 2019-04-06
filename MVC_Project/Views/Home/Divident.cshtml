@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MVC_Project.Models.Divident>
+
+@{
+    ViewData["Title"] = "Divident";
+}
+
+<h2>Divident</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Record_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divident_type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Record_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Divident_type)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Exdate">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Exdate">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Exdate">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
