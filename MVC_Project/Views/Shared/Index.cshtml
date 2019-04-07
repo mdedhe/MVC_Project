@@ -5,9 +5,6 @@
 }
 <h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -26,7 +23,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.IexId)
             </th>
-            <th></th>
+            <th>Dividends</th>
+            <th>Company Statistics</th>
         </tr>
     </thead>
     <tbody>
@@ -48,9 +46,10 @@
                 @Html.DisplayFor(modelItem => item.IexId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Symbol">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Symbol">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Symbol">Delete</a>
+                <a asp-controller="Home" asp-route-id="@item.Symbol" asp-action="Divident">Dividends</a>
+            </td>
+            <td>
+                <a asp-controller="CompanyStats"  asp-route-name ="@item.Name" asp-route-id="@item.Symbol" asp-action="CompanyStat">Stats</a>
             </td>
         </tr>
 }

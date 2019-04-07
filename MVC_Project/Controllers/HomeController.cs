@@ -10,6 +10,7 @@ using MVC_Project.Models;
 using static MVC_Project.Models.Company;
 using static MVC_Project.Models.Divident;
 using Newtonsoft.Json;
+
 namespace MVC_Project.Controllers
 {
     public class HomeController : Controller
@@ -44,11 +45,14 @@ namespace MVC_Project.Controllers
             Calls the IEX reference API to get the list of symbols.
             Returns a list of the companies whose information is available. 
         */
-        public List<Divident> GetDividents(string symbols)
+
+        public List<Divident> GetDividents(string symbol)
         {
-            string IEXTrading_API_PATH = BASE_URL + "/stock/" + "aapl" + "/dividends/1y";
-            string dividentList = "";
             List<Divident> dividends = new List<Divident>();
+            string IEXTrading_API_PATH = BASE_URL + "/stock/" + symbol + "/dividends/5y";
+
+            string dividentList = "";
+            //List<Divident> dividends1 = new List<Divident>();
             httpClient.BaseAddress = new Uri(IEXTrading_API_PATH);
 
             HttpResponseMessage respose = httpClient.GetAsync(IEXTrading_API_PATH).GetAwaiter().GetResult();
@@ -57,21 +61,25 @@ namespace MVC_Project.Controllers
             {
                 dividentList = respose.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             }
-            if (!dividentList.Equals(""))
+            if (!dividentList.Equals("") )
             {
+               
                 dividends = JsonConvert.DeserializeObject<List<Divident>>(dividentList);
-                dividends.GetRange(0, 3);
+                dividends.GetRange(0, dividends.Count );
             }
+            // dividends.AddRange(dividends1);
             return dividends;
         }
-
-        public IActionResult Divident(string symbols)
+        [Route("{id}")]
+        public IActionResult Divident(String  id)
         {
             //Set ViewBag variable first
+            string symbol = id;
+            
             ViewBag.dbSuccessComp = 0;
-            List<Divident> divident = GetDividents(symbols);
-
-            //Save companies in TempData, so they do not have to be retrieved again
+            //List<Company> companies = GetSymbols(symbol);
+            List<Divident> divident= GetDividents(symbol);
+             //Save companies in TempData, so they do not have to be retrieved again
             TempData["divident"] = JsonConvert.SerializeObject(divident);
 
             return View(divident);
@@ -104,6 +112,7 @@ namespace MVC_Project.Controllers
             return companies;
         }
 
+        //this is for the Get companies
         public IActionResult Index()
         {
             //Set ViewBag variable first
