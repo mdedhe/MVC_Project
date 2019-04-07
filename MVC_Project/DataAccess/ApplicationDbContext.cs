@@ -16,5 +16,6 @@ namespace MVC_Project.DataAccess
         public DbSet<Divident> Divident { get; set; }
         public DbSet<CompanyStats> CompanyStats { get; set; }
         public DbSet<Sector> Sector { get; set; }
+        public DbSet<Logo> Logo { get; set; }
     }
 }

@@ -25,6 +25,7 @@
             </th>
             <th>Dividends</th>
             <th>Company Statistics</th>
+            <th>Logos</th>
         </tr>
     </thead>
     <tbody>
@@ -50,6 +51,9 @@
             </td>
             <td>
                 <a asp-controller="CompanyStats"  asp-route-name ="@item.Name" asp-route-id="@item.Symbol" asp-action="CompanyStat">Stats</a>
+            </td>
+            <td>
+                <a asp-controller="Home" asp-route-id="@item.Symbol" asp-action="Logo">Logo</a>
             </td>
         </tr>
 }

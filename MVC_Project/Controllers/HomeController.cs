@@ -84,7 +84,40 @@ namespace MVC_Project.Controllers
 
             return View(divident);
         }
+        public Logo GetLogos(string symbol)
+        {
+            Logo logo = new Logo();
+            ///stock/{symbol}/logo
+            string IEXTrading_API_PATH = BASE_URL + "/stock/" + symbol + "/logo";
 
+            string logoList = "";
+            //List<Divident> dividends1 = new List<Divident>();
+            httpClient.BaseAddress = new Uri(IEXTrading_API_PATH);
+
+            HttpResponseMessage respose = httpClient.GetAsync(IEXTrading_API_PATH).GetAwaiter().GetResult();
+
+            if (respose.IsSuccessStatusCode)
+            {
+                logoList = respose.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            }
+            if (!logoList.Equals(""))
+            {
+
+                logo = JsonConvert.DeserializeObject<Logo>(logoList);
+            }
+            // dividends.AddRange(dividends1);
+            return logo;
+        }
+        public IActionResult Logo(String symbol)
+        {
+            ViewBag.dbSuccessComp = 0;
+            //List<Company> companies = GetSymbols(symbol);
+             Logo logo = GetLogos(symbol);
+            //Save companies in TempData, so they do not have to be retrieved again
+            TempData["logo"] = JsonConvert.SerializeObject(logo);
+
+            return View(logo);
+        }
         public List<Company> GetSymbols()
         {
             string IEXTrading_API_PATH = BASE_URL + "ref-data/symbols";

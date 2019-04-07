@@ -44,4 +44,9 @@ namespace MVC_Project.Models
             public float Performance { get; set; }
             public string lastUpdated { get; set; }
         }
+        public class Logo
+        {
+            [Key]
+            public string url { get; set; }
+        }
 }
