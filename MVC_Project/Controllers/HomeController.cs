@@ -125,6 +125,14 @@ namespace MVC_Project.Controllers
             return View(companies);
         }
 
+        //
+        //this is for the Get companies
+        public IActionResult AboutUs()
+        {
+            //Set ViewBag variable first
+            ViewBag.dbSuccessComp = 0;
+            return View();
+        }
         /*
             The Symbols action calls the GetSymbols method that returns a list of Companies.
             This list of Companies is passed to the Symbols View.
