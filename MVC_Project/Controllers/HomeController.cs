@@ -20,6 +20,7 @@ namespace MVC_Project.Controllers
             define the connection to the API, and use the
             HttpClient to request data from the API
         */
+        static Db dbinsert = new Db();
         public ApplicationDbContext dbContext;
         //Base URL for the IEXTrading API. Method specific URLs are appended to this base URL.
         string BASE_URL = "https://api.iextrading.com/1.0/";
@@ -46,6 +47,14 @@ namespace MVC_Project.Controllers
             Returns a list of the companies whose information is available. 
         */
 
+        /*
+         Adding into database 
+         */
+        public string AddCompany(Company com)
+        {
+            var response = dbinsert.Add_companys(com);
+            return response;
+        }
         public List<Divident> GetDividents(string symbol)
         {
             List<Divident> dividends = new List<Divident>();
@@ -70,7 +79,7 @@ namespace MVC_Project.Controllers
             // dividends.AddRange(dividends1);
             return dividends;
         }
-        [Route("{id}")]
+        //[Route("{id}")]
         public IActionResult Divident(String  id)
         {
             //Set ViewBag variable first

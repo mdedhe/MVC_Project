@@ -36,7 +36,7 @@ namespace MVC_Project
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             // Setup EF connection - modify the Conguration string
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(@"Server = (localdb)\mssqllocaldb;Database=IEXTrading;Trusted_Connection=True;ConnectionRetryCount=0"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(@"Server = (localdb)\mssqllocaldb;Database=IEXTrading;Trusted_Connection=True;ConnectRetryCount=0"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
